@@ -99,7 +99,7 @@
   
   <div id="install-banner" class="hidden">
     <div class="banner-content">
-      <img src="./icon-192.png" alt="Logo app.banca" class="banner-logo">
+      <img src="./icons/icon-192.png" alt="Logo app.banca" class="banner-logo">
       <div class="banner-text">
         <div class="banner-title">Instalar app.banca</div>
       </div>
@@ -129,17 +129,14 @@
       }
     });
     
-    // Detectar si ya está en modo app (standalone)
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
                          window.navigator.standalone;
     
-    // Capturar el evento de instalación nativo
     window.addEventListener('beforeinstallprompt', (e) => {
       console.log('Evento beforeinstallprompt capturado');
       e.preventDefault();
       deferredPrompt = e;
       
-      // Mostrar banner si no se ha cerrado antes y no está instalada
       if (!isStandalone && localStorage.getItem('installBannerClosed') !== 'true') {
         setTimeout(() => {
           installBanner.classList.remove('hidden');
@@ -147,10 +144,9 @@
       }
     });
     
-    // Ejecutar la instalación al dar clic
     installBtn.addEventListener('click', async () => {
       if (!deferredPrompt) {
-        alert('Para instalar: Usa el menú del navegador (compartir o tres puntos) y elige "Añadir a pantalla de inicio"');
+        alert('Para instalar: Usa el menú del navegador y elige "Añadir a pantalla de inicio"');
         return;
       }
       
@@ -165,19 +161,16 @@
       deferredPrompt = null;
     });
     
-    // Cerrar banner manualmente
     closeBanner.addEventListener('click', () => {
       installBanner.classList.add('hidden');
       localStorage.setItem('installBannerClosed', 'true');
     });
     
-    // Ocultar banner si se completa la instalación
     window.addEventListener('appinstalled', () => {
       console.log('App instalada');
       installBanner.classList.add('hidden');
     });
 
-    // Backup: Mostrar banner tras 4 segundos si el evento no dispara (algunos navegadores)
     setTimeout(() => {
       if (!isStandalone && 
           !deferredPrompt && 
