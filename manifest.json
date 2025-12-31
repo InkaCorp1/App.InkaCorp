@@ -19,6 +19,6 @@
   "scope": "./",
   "display": "standalone",
   "background_color": "#0b4e32",
-  "theme_color": "#0e4353",
+  "theme_color": "#ffffff",
   "description": "Banca movil de Inka Corp"
 }
