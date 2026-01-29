@@ -1,4 +1,4 @@
-const CACHE_NAME = 'app-banca-v4';
+const CACHE_NAME = 'app-banca-v19';
 
 // Recursos que queremos cachear - Corregidos según tu estructura de GitHub
 const urlsToCache = [
@@ -41,12 +41,18 @@ self.addEventListener('fetch', event => {
   if (!event.request.url.startsWith('http')) {
     return;
   }
-  
+
+  // IMPORTANTE: Ignorar peticiones que no sean GET (como POST de formularios o APIs)
+  // Esto evita interferencias con webhooks de n8n y otros servicios
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
   // Ignorar peticiones a servicios externos que no queremos cachear (n8n, Google Scripts, etc)
   if (event.request.url.includes('script.google.com')) {
     return;
   }
-  
+
   event.respondWith(
     caches.match(event.request)
       .then(cachedResponse => {
@@ -54,7 +60,7 @@ self.addEventListener('fetch', event => {
         if (cachedResponse) {
           return cachedResponse;
         }
-        
+
         // Si no está, intentamos buscarlo en la red
         return fetch(event.request)
           .then(response => {
@@ -62,15 +68,15 @@ self.addEventListener('fetch', event => {
             if (!response || response.status !== 200 || response.type !== 'basic') {
               return response;
             }
-            
+
             // Clonamos la respuesta para guardarla en cache y seguir sirviéndola
             const responseToCache = response.clone();
-            
+
             caches.open(CACHE_NAME)
               .then(cache => {
                 cache.put(event.request, responseToCache);
               });
-            
+
             return response;
           })
           .catch(() => {
