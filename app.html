@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InkaCorp - Registro de Cédula</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1E5631;
+            --primary-hover: #2E7D32;
+            --bg-color: #F5F7F5;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+            --error-color: #C45C26;
+            --success-color: #2E7D32;
+            --accent-color: #D4A030;
+            --secondary-color: #2C3E50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9fafb;
+            /* Solid professional background */
+            background: #f9fafb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-color);
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Animated Background Blobs */
+        /* Animated Background Blobs - Removed for minimalist solid look */
+        .bg-blobs {
+            display: none;
+        }
+
+        .blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            filter: blur(100px);
+            border-radius: 50%;
+            opacity: 0.25;
+            animation: moveBlob 20s infinite alternate ease-in-out;
+            mix-blend-mode: multiply;
+        }
+
+        .blob-1 {
+            top: -100px;
+            left: -100px;
+            background: var(--primary-color);
+            animation-duration: 25s;
+        }
+
+        .blob-2 {
+            bottom: -150px;
+            right: -150px;
+            background: var(--accent-color);
+            animation-duration: 30s;
+            animation-delay: -5s;
+        }
+
+        .blob-3 {
+            top: 30%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            background: #A5D6A7;
+            animation-duration: 35s;
+            animation-delay: -10s;
+            opacity: 0.15;
+        }
+
+        @keyframes moveBlob {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(150px, 100px) scale(1.2);
+            }
+
+            66% {
+                transform: translate(-80px, 150px) scale(0.8);
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+
+        body::before {
+            display: none;
+            /* Remove texture overlay */
+        }
+
+        h1 {
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            animation: fadeInUp 0.5s ease-out 0.3s both;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            padding: 2.5rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(30, 86, 49, 0.05);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Logo Styles */
+        .logo-container {
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            animation: logoEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: drop-shadow(0 10px 25px rgba(30, 86, 49, 0.3));
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-container::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color), var(--primary-color));
+            background-size: 200% 200%;
+            animation: logoGlow 3s linear infinite;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .logo-container::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: white;
+            z-index: -1;
+        }
+
+        @keyframes logoEntrance {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes logoFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes logoGlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(30, 86, 49, 0.15);
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        #message {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
+            white-space: pre-wrap;
+            word-break: break-word;
+            text-align: left;
+        }
+
+        .success {
+            background-color: #E8F5E9;
+            color: var(--success-color);
+            border: 1px solid #A5D6A7;
+        }
+
+        .error {
+            background-color: #FBE9E7;
+            color: var(--error-color);
+            border: 1px solid #FFAB91;
+        }
+
+        /* Menu Styles - Bottom Navigation */
+        .nav-menu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+            border-radius: 20px 20px 0 0;
+            padding: 0.8rem 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #9ca3af;
+            background: transparent !important;
+            box-shadow: none !important;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        .nav-item i {
+            font-size: 1.4rem;
+            margin-bottom: 2px;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-item.active {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-item.active i {
+            transform: translateY(-2px);
+        }
+
+        .nav-item:hover:not(.active) {
+            color: var(--primary-hover);
+        }
+
+        /* Logout button special style in bottom nav? No, keep it uniform or maybe separate top right? 
+           User requested minimalist bottom nav. Let's keep logout there or move to profile tab inside.
+           For now, keep it in the nav but consistent.
+        */
+        .nav-item.logout-btn {
+            margin-left: 0;
+            /* Reset previous margin-auto */
+            color: var(--error-color);
+        }
+
+        .nav-item.logout-btn:hover {
+            background: transparent;
+            color: #d32f2f;
+        }
+
+        /* Dashboard Styles */
+        #dashboard {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            /* More mobile-like width focus */
+            /* Remove glassmorphism container looks for dashboard wrapper */
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            padding: 0 0 100px 0;
+            /* Bottom padding for navbar space */
+            border-radius: 0;
+            box-shadow: none;
+            text-align: left;
+            overflow: visible;
+            /* Allow sticky headers etc if needed */
+            margin: 0 auto;
+        }
+
+        /* Minimalist Profile Header */
+        .profile-header {
+            background: transparent;
+            /* Remove gradient background */
+            padding: 2rem 1.5rem 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-color);
+            position: relative;
+            box-shadow: none;
+        }
+
+        .profile-header::before,
+        .profile-header::after {
+            display: none;
+            /* Remove glimmer effects */
+        }
+
+        .profile-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            /* Minimal border */
+            box-shadow: none;
+        }
+
+        .profile-photo:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .profile-info h2 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            text-shadow: none;
+            margin-bottom: 0.2rem;
+        }
+
+        .profile-greeting {
+            font-size: 0.9rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .badge {
+            display: none;
+            /* Hide badge for cleaner look unless critical */
+        }
+
+        .dashboard-content {
+            padding: 1rem 1.5rem;
+        }
+
+        /* Minimalist Data Cards */
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .data-item {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 1.25rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            /* Extremely subtle shadow */
+            border: 1px solid #f3f4f6;
+            backdrop-filter: none;
+        }
+
+        .data-item::before {
+            display: none;
+            /* Remove left border gradient */
+        }
+
+        .data-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .data-item label {
+            color: #9ca3af;
+            /* Lighter label */
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .data-item label i {
+            color: var(--accent-color);
+            /* Use accent for icons for pop */
+            font-size: 0.9rem;
+        }
+
+        .data-item p {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        /* Section Headers */
+        .section-title {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid var(--accent-color);
+            line-height: 1.2;
+        }
+
+        /* Welcome Toast Glassmorphism */
+        .welcome-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: rgba(30, 86, 49, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: white;
+            padding: 3rem;
+            border-radius: 2.5rem;
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            z-index: 10000;
+            font-weight: 700;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .welcome-toast.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .welcome-toast.hide {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.05);
+            filter: blur(15px);
+        }
+
+        .welcome-toast .welcome-icon {
+            background: rgba(255, 255, 255, 0.25);
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            margin-bottom: 0.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: iconFloat 3s ease-in-out infinite;
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .welcome-toast .welcome-name {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .welcome-toast .welcome-icon .emoji {
+            display: inline-block;
+            animation: waveHand 2s ease-in-out infinite;
+            transform-origin: 70% 70%;
+        }
+
+        @keyframes waveHand {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            20% {
+                transform: rotate(-15deg);
+            }
+
+            40% {
+                transform: rotate(10deg);
+            }
+
+            60% {
+                transform: rotate(-15deg);
+            }
+
+            80% {
+                transform: rotate(10deg);
+            }
+        }
+
+        .welcome-toast.alert-toast {
+            background: rgba(196, 92, 38, 0.7);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Credits Card Styles - Minimalist Redesign */
+        .credits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem 0 5rem 0;
+            /* Add bottom padding for scrolling past nav */
+        }
+
+        .credit-card {
+            background: #ffffff;
+            border: 1px solid #f3f4f6;
+            border-radius: 20px;
+            padding: 0;
+            /* Header spans full width, so remove padding here */
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+        }
+
+        /* Subtle Gold Accent Top */
+        .credit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-color);
+        }
+
+        .credit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            border-color: rgba(30, 86, 49, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 1.5rem 1rem 1.5rem;
+            border-bottom: 1px solid #f9fafb;
+            margin-top: 4px;
+            /* Space for the accent bar */
+        }
+
+        .card-code {
+            font-size: 0.9rem;
+            color: #6b7280;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .card-main-info {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .card-icon-box {
+            width: 50px;
+            height: 50px;
+            background: #f0fdf4;
+            /* Very light green */
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            /* Remove complex borders/shadows for flat look */
+        }
+
+        .card-amount {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-amount .label {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.2rem;
+            font-weight: 600;
+        }
+
+        .card-amount .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        /* Stats Section */
+        .card-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            background: #f8fafc;
+            /* Very light gray block */
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid #f1f5f9;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 600;
+        }
+
+        .stat-label i {
+            color: #9ca3af;
+            font-size: 0.85rem;
+        }
+
+        .stat-value {
+            font-size: 1rem;
+            color: var(--text-color);
+            font-weight: 700;
+        }
+
+        @keyframes iconFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .click-hint {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--primary-color);
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .credit-card:hover .click-hint {
+            opacity: 1;
+        }
+
+        /* Logout button refinement */
+        .nav-item.logout-btn {
+            margin-left: auto;
+            color: var(--error-color);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-item.logout-btn:hover {
+            background: rgba(196, 92, 38, 0.1);
+            color: var(--error-color);
+        }
+
+        .nav-item.logout-btn span {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .nav-item.logout-btn:hover span {
+            transform: translateX(4px);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Credits Table */
+        .credits-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .credits-table th,
+        .credits-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .credits-table th {
+            font-size: 0.75rem;
+            color: #6b7280;
+            text-transform: uppercase;
+        }
+
+        .credits-table td {
+            font-size: 0.9rem;
+        }
+
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid var(--primary-color);
+            width: 20px;
+            height: 20px;
+            -webkit-animation: spin 1s linear infinite;
+            /* Safari */
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Asset Image Preview */
+        .image-preview {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-top: 1rem;
+            display: block;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            body {
+                align-items: flex-start;
+                padding: 0;
+            }
+
+            .container,
+            #dashboard {
+                max-width: 100%;
+                min-height: 100vh;
+                border-radius: 0;
+                box-shadow: none;
+                margin: 0;
+                padding: 1.5rem;
+            }
+
+            #dashboard {
+                padding: 0 0 100px 0;
+                /* Ensure content clears the fixed navbar */
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+                padding: 2.5rem 1.5rem;
+            }
+
+            .profile-photo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .data-item.full-width {
+                grid-column: span 1;
+            }
+
+            .nav-menu {
+                overflow-x: hidden;
+                justify-content: space-around;
+                width: 100%;
+                padding: 0.75rem 0;
+            }
+
+            .nav-menu::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-item {
+                flex: 1;
+                flex-shrink: 1;
+                padding: 0.5rem 0;
+                font-size: 0.75rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .welcome-toast {
+                width: 75%;
+                max-width: 320px;
+                padding: 2rem 1rem;
+                font-size: 1.3rem;
+                gap: 1rem;
+                border-radius: 2rem;
+            }
+
+            .welcome-toast .welcome-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2.2rem;
+            }
+
+            .welcome-toast .welcome-name {
+                font-size: 1.1rem;
+            }
+
+            .welcome-toast.alert-toast {
+                background: rgba(196, 92, 38, 0.8);
+            }
+
+            .credits-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+
+        /* Amortization Modal - Solid Minimalist Design */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            /* Slightly darker for better focus */
+            backdrop-filter: blur(4px);
+            /* Blur background ONLY, not modal itself */
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            /* Remove padding for full screen */
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            /* Solid White */
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            max-height: none;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: left;
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f3f4f6;
+            background: #ffffff;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .modal-header h3 i {
+            color: var(--primary-color);
+        }
+
+        .close-modal {
+            background: #f3f4f6;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #6b7280;
+        }
+
+        .close-modal:hover {
+            background: #e5e7eb;
+            color: var(--error-color);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex: 1;
+            background: #ffffff;
+        }
+
+        #amortizationContent {
+            margin: 0;
+            padding: 0;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 auto;
+            border-radius: 8px;
+            border: 1px solid #f3f4f6;
+        }
+
+        @media (max-width: 600px) {
+            .modal-content {
+                border-radius: 16px;
+                max-height: 90vh;
+            }
+
+            .modal-header {
+                padding: 1rem 1.25rem;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+        }
+
+        .amortization-table {
+            width: 100%;
+            border-collapse: collapse;
+            /* Solid table */
+            border-spacing: 0;
+        }
+
+        .amortization-table th {
+            position: sticky;
+            top: 0;
+            background: #f8fafc;
+            /* Solid light gray */
+            padding: 1rem;
+            text-align: left;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6b7280;
+            font-weight: 700;
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 10;
+        }
+
+        .amortization-table td {
+            padding: 1rem;
+            background: #ffffff;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .amortization-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .amortization-table tr:hover td {
+            background: #f9fafb;
+        }
+
+        .amortization-table tr td:first-child {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .status-pill {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background Blobs -->
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div id="welcomeContainer"></div>
+
+    <div class="container" id="loginContainer">
+        <div class="logo-container">
+            <img src="https://i.ibb.co/HfftCwP9/inka-corp.png" alt="InkaCorp Logo" class="logo">
+        </div>
+        <h1>InkaCorp App</h1>
+        <p style="margin-bottom: 1.5rem; color: #6b7280;">Ingrese su número de cédula para continuar</p>
+
+        <form id="cedulaForm">
+            <div class="form-group" id="cedulaGroup">
+                <label for="cedula">Número de Cédula</label>
+                <input type="text" id="cedula" name="cedula" placeholder="Ej: 1712345678" required pattern="[0-9]+"
+                    title="Por favor ingrese solo números">
+            </div>
+            <div class="form-group" id="otpGroup" style="display: none;">
+                <label for="otp">Código de WhatsApp</label>
+                <input type="text" id="otp" name="otp" placeholder="Ingresar código" style="text-transform: uppercase;">
+            </div>
+            <button type="submit" id="submitBtn">Enviar Cédula</button>
+        </form>
+
+        <div id="message"></div>
+    </div>
+
+    <div id="dashboard">
+        <div class="profile-header">
+            <img id="userPhoto" src="" alt="Foto" class="profile-photo">
+            <div class="profile-info">
+                <div class="profile-greeting">Hola,</div>
+                <h2 id="userName">Socio</h2>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+
+            <div id="perfilTab" class="tab-content active">
+                <div class="section-title">Información Personal</div>
+                <div class="data-grid">
+                    <div class="data-item">
+                        <label><i class="fas fa-id-card"></i> Cédula</label>
+                        <p id="userCedula">-</p>
+                    </div>
+                    <div class="data-item">
+                        <label><i class="fab fa-whatsapp"></i> WhatsApp</label>
+                        <p id="userWhatsapp">-</p>
+                    </div>
+                    <div class="data-item full-width">
+                        <label><i class="fas fa-map-marker-alt"></i> Domicilio</label>
+                        <p id="userAddress">-</p>
+                    </div>
+                    <div class="data-item">
+                        <label><i class="fas fa-ring"></i> Estado Civil</label>
+                        <p id="userCivil">-</p>
+                    </div>
+                    <div class="data-item">
+                        <label><i class="fas fa-globe-americas"></i> País</label>
+                        <p id="userCountry">-</p>
+                    </div>
+                    <div class="data-item full-width">
+                        <label><i class="fas fa-home"></i> Bien Registrado</label>
+                        <p id="userAsset">-</p>
+                        <img id="assetPhoto" src="" alt="Foto Bien" class="image-preview">
+                    </div>
+                </div>
+            </div>
+
+            <div id="creditosTab" class="tab-content">
+                <div class="section-title">Mis Productos</div>
+                <div id="creditsLoading" style="text-align: center; padding: 2rem; display: none;">
+                    <div class="loader"></div> Cargando créditos...
+                </div>
+                <div id="creditsList">
+                    <!-- Aquí se cargarán los créditos -->
+                </div>
+            </div>
+
+            <!-- [NEW] Policies Tab Content -->
+            <div id="polizasTab" class="tab-content">
+                <div class="section-title">Mis Pólizas</div>
+                <div id="polizasLoading" style="text-align: center; padding: 2rem; display: none;">
+                    <div class="loader"></div> Cargando pólizas...
+                </div>
+                <div id="polizasList">
+                    <!-- Aquí se cargarán las pólizas -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation Menu -->
+        <div class="nav-menu">
+            <div class="nav-item active" onclick="switchTab('perfil')">
+                <i class="fas fa-user-circle"></i>
+                <span>Perfil</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('creditos')">
+                <i class="fas fa-wallet"></i>
+                <span>Créditos</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('polizas')">
+                <i class="fas fa-file-contract"></i>
+                <span>Pólizas</span>
+            </div>
+            <div class="nav-item logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Salir</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Amortization Modal -->
+    <div id="amortizationModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-list-ol"></i> Tabla de Amortización</h3>
+                <button class="close-modal" onclick="closeAmortizationModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="amortizationLoading" style="text-align: center; padding: 2rem; display: none;">
+                    <div class="loader"></div> Consultando amortización...
+                </div>
+                <div id="amortizationContent">
+                    <!-- Tabla de amortización -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
+        const loginContainer = document.getElementById('loginContainer');
+        const dashboard = document.getElementById('dashboard');
+        const form = document.getElementById('cedulaForm');
+        const messageDiv = document.getElementById('message');
+        const submitBtn = document.getElementById('submitBtn');
+        const cedulaGroup = document.getElementById('cedulaGroup');
+        const otpGroup = document.getElementById('otpGroup');
+        const otpInput = document.getElementById('otp');
+        const cedulaInput = document.getElementById('cedula');
+
+        const webhookCedula = 'https://lpwebhook.luispinta.com/webhook/cedula-inkaapp';
+        const webhookVerify = 'https://lpwebhook.luispinta.com/webhook/SessionVerificate';
+        const webhookSocios = 'https://lpwebhook.luispinta.com/webhook/SociosQuery';
+        const webhookCreditos = 'https://lpwebhook.luispinta.com/webhook/CreditosQuery';
+        const webhookAmortizacion = 'https://lpwebhook.luispinta.com/webhook/AmortizacionQuery';
+        const webhookPolizas = 'https://lpwebhook.luispinta.com/webhook/PolizasQuery'; // [NEW]
+
+        const SESSION_TIMEOUT = 12 * 60 * 1000; // 12 minutos
+
+        let currentStep = 1; // 1: Cedula, 2: OTP
+
+        // Función para obtener sesión válida o cerrar si expiró
+        function getValidSession() {
+            const cachedSession = localStorage.getItem('inkaSession');
+            if (!cachedSession) return null;
+
+            const sessionData = JSON.parse(cachedSession);
+            const now = new Date().getTime();
+
+            if (now - sessionData.timestamp > SESSION_TIMEOUT) {
+                logout('expired');
+                return null;
+            }
+            return sessionData;
+        }
+
+        function isSecurityError(msg) {
+            if (!msg || typeof msg !== 'string') return false;
+            const lowerMsg = msg.toLowerCase();
+            return lowerMsg.includes('expirado') || lowerMsg.includes('caducado') || lowerMsg.includes('incorrecto');
+        }
+
+        // Verificar sesión al cargar
+        window.addEventListener('DOMContentLoaded', () => {
+            const session = getValidSession();
+            if (session) {
+                renderDashboard(session.socio, session.token, session.timestamp, false);
+            }
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const cedula = cedulaInput.value;
+            const otp = otpInput.value.toUpperCase();
+
+            // UI Loading State
+            setLoading(true);
+            hideMessage();
+
+            try {
+                if (currentStep === 1) {
+                    // Paso 1: Enviar Cédula
+                    const response = await fetch(webhookCedula, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ cedula: cedula })
+                    });
+
+                    if (response.ok) {
+                        showMessage('Código enviado a tu WhatsApp.', 'success', {
+                            icon: '<i class="fab fa-whatsapp"></i>',
+                            title: 'Código Enviado',
+                            duration: 2500
+                        });
+                        // Cambiar al paso de OTP
+                        cedulaInput.readOnly = true;
+                        otpGroup.style.display = 'block';
+                        otpInput.required = true;
+                        submitBtn.textContent = 'Enviar Código';
+                        submitBtn.removeAttribute('data-original-text');
+                        currentStep = 2;
+                    } else {
+                        showMessage('Error al enviar la cédula. Intente nuevamente.', 'error');
+                    }
+                } else {
+                    // Paso 2: Verificar OTP
+                    const response = await fetch(webhookVerify, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            cedula: cedula,
+                            otp: otp
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        // Limpiar cualquier toast previo inmediatamente
+                        const toastContainer = document.getElementById('welcomeContainer');
+                        if (toastContainer) toastContainer.innerHTML = '';
+
+                        // Opcional: mostrar un mensaje silencioso o simplemente esperar al dashboard
+
+                        // Paso 3: SociosQuery con Bearer Token
+                        const responseSocios = await fetch(webhookSocios, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': data.token
+                            },
+                            body: JSON.stringify({ cedula: cedula })
+                        });
+
+                        const sociosResult = await responseSocios.json();
+
+                        if (responseSocios.ok && Array.isArray(sociosResult) && sociosResult.length > 0) {
+                            renderDashboard(sociosResult[0], data.token, null, true);
+                        } else {
+                            const errorMsg = sociosResult.message || 'Error en la consulta de socio final.';
+                            if (isSecurityError(errorMsg)) {
+                                logout('security');
+                            } else {
+                                showMessage(errorMsg, 'error');
+                            }
+                        }
+                    } else {
+                        const errorMsg = data.message || 'OTP incorrecto o expirado';
+                        if (isSecurityError(errorMsg)) {
+                            logout('security');
+                        } else {
+                            showMessage(errorMsg, 'error');
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('Error de conexión. Verifique su internet.', 'error');
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // Función para mostrar bienvenida u otras alertas glassmorphism
+        function showStatusToast(config) {
+            const container = document.getElementById('welcomeContainer');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            const toast = document.createElement('div');
+            toast.className = 'welcome-toast';
+            if (config.type === 'alert') toast.classList.add('alert-toast');
+
+            toast.innerHTML = `
+                <div class="welcome-icon">
+                    <span class="emoji">${config.icon}</span>
+                </div>
+                <div>${config.title}</div>
+                <div class="welcome-name">${config.message}</div>
+            `;
+            container.appendChild(toast);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+                const dash = document.getElementById('dashboard');
+                const login = document.getElementById('loginContainer');
+                if (dash && dash.style.display !== 'none') dash.classList.add('dashboard-blur');
+                if (login && login.style.display !== 'none') login.style.filter = 'blur(10px)';
+            });
+
+            const closeToast = () => {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+                const dash = document.getElementById('dashboard');
+                const login = document.getElementById('loginContainer');
+                if (dash) dash.classList.remove('dashboard-blur');
+                if (login) login.style.filter = '';
+                setTimeout(() => toast.remove(), 600);
+                document.removeEventListener('click', closeToast);
+            };
+
+            document.addEventListener('click', closeToast);
+            setTimeout(closeToast, config.duration || 4000);
+        }
+
+        function showWelcomeMessage(nombre) {
+            showStatusToast({
+                icon: '<i class="fas fa-hand-peace"></i>',
+                title: '¡Hola de nuevo!',
+                message: nombre,
+                duration: 3000
+            });
+        }
+
+        function showExpiryMessage(type) {
+            const config = type === 'security' ? {
+                icon: '<i class="fas fa-shield-alt"></i>',
+                title: 'Sesión Protegida',
+                message: 'Por tu seguridad, la sesión se ha cerrado. Vuelve a iniciar.'
+            } : {
+                icon: '<i class="fas fa-clock"></i>',
+                title: 'Sesión Expirada',
+                message: 'Tu sesión ha terminado por inactividad. ¡Ingresa de nuevo!'
+            };
+
+            showStatusToast({
+                ...config,
+                type: 'alert',
+                duration: 5000
+            });
+        }
+
+        function renderDashboard(socio, token, existingTimestamp, showWelcome = true) {
+            // Guardar en cache
+            const sessionData = {
+                socio: socio,
+                token: token || (JSON.parse(localStorage.getItem('inkaSession'))?.token),
+                timestamp: existingTimestamp || new Date().getTime()
+            };
+            localStorage.setItem('inkaSession', JSON.stringify(sessionData));
+
+            // Llenar datos
+            document.getElementById('userName').textContent = socio.nombre;
+            // document.getElementById('userBadge').textContent = socio.tipo;
+            document.getElementById('userPhoto').src = socio.fotoidentidad;
+            document.getElementById('userCedula').textContent = socio.cedula;
+            document.getElementById('userWhatsapp').textContent = socio.whatsapp;
+            document.getElementById('userAddress').textContent = socio.domicilio;
+            document.getElementById('userCivil').textContent = socio.estadocivil;
+            document.getElementById('userCountry').textContent = socio.paisresidencia;
+            document.getElementById('userAsset').textContent = socio.bien;
+            document.getElementById('assetPhoto').src = socio.fotobien;
+
+            // Transición animada sin parpadeo
+            loginContainer.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            loginContainer.style.opacity = '0';
+            loginContainer.style.transform = 'scale(0.95) translateY(-20px)';
+
+            // Mostrar bienvenida glass si corresponde
+            if (showWelcome) {
+                showWelcomeMessage(socio.nombre);
+            }
+
+            setTimeout(() => {
+                loginContainer.style.display = 'none';
+
+                // Preparar dashboard invisible antes de mostrarlo
+                dashboard.style.opacity = '0';
+                dashboard.style.display = 'block';
+
+                // Usar requestAnimationFrame para evitar parpadeo
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        dashboard.style.opacity = '1';
+                        dashboard.classList.add('animate-enter');
+
+                        // Remover la clase después de la animación
+                        setTimeout(() => {
+                            dashboard.classList.remove('animate-enter');
+                        }, 2000);
+                    });
+                });
+            }, 300);
+        }
+
+        async function switchTab(tabName) {
+            // Scroll to top instantly without animation
+            window.scrollTo({ top: 0, behavior: 'instant' });
+
+            // Actualizar UI de pestañas
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.textContent.toLowerCase().includes(tabName)) item.classList.add('active');
+            });
+
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+
+            if (tabName === 'creditos') {
+                loadCredits();
+            } else if (tabName === 'polizas') { // [NEW]
+                loadPolizas();
+            }
+        }
+
+        async function loadCredits() {
+            const creditsList = document.getElementById('creditsList');
+            const loader = document.getElementById('creditsLoading');
+            const sessionData = getValidSession();
+
+            if (!sessionData) return;
+
+            // 1. Mostrar datos cacheados inmediatamente si existen
+            const cachedCredits = localStorage.getItem(`credits_${sessionData.socio.cedula}`);
+            if (cachedCredits) {
+                renderCreditsTable(JSON.parse(cachedCredits));
+            } else {
+                creditsList.innerHTML = '';
+                loader.style.display = 'block';
+            }
+
+            // 2. Sincronizar en segundo plano
+            try {
+                const requestBody = {
+                    cedula: sessionData.socio.cedula,
+                    idsocio: sessionData.socio.idsocio // Formato original esperado por n8n
+                };
+
+                console.log('Fetching credits with:', requestBody);
+
+                const response = await fetch(webhookCreditos, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': sessionData.token
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                const responseText = await response.text();
+
+                if (!response.ok) {
+                    console.error('Credits error status:', response.status, responseText);
+                    throw new Error(`Server returned ${response.status}`);
+                }
+
+                if (!responseText || responseText.trim() === '') {
+                    console.warn('Credits response is empty');
+                    loader.style.display = 'none';
+                    if (!cachedCredits) {
+                        creditsList.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">No se recibió respuesta del servidor (vío).</p>';
+                    }
+                    return;
+                }
+
+                const data = JSON.parse(responseText);
+                loader.style.display = 'none';
+
+                if (Array.isArray(data)) {
+                    // Guardar en cache y actualizar vista
+                    localStorage.setItem(`credits_${sessionData.socio.cedula}`, JSON.stringify(data));
+                    renderCreditsTable(data);
+                } else {
+                    const errorMsg = data.message || 'No se encontraron créditos registrados.';
+                    if (isSecurityError(errorMsg)) {
+                        logout('security');
+                    } else if (!cachedCredits) {
+                        creditsList.innerHTML = `<p style="text-align: center; color: #6b7280; padding: 2rem;">${errorMsg}</p>`;
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading credits:', error);
+                loader.style.display = 'none';
+                if (!cachedCredits) {
+                    creditsList.innerHTML = `<p style="text-align: center; color: var(--error-color); padding: 2rem;">Error al cargar créditos. Revisa la consola.</p>`;
+                }
+            }
+        }
+
+        function getStatusBadgeStyle(estado) {
+            const status = (estado || '').toUpperCase();
+
+            // ACTIVO - Verde
+            if (status.includes('ACTIVO') || status.includes('PAGADO') || status.includes('COMPLETADO') || status.includes('APROBADO')) {
+                return 'background: linear-gradient(135deg, #E8F5E9, #C8E6C9); color: #1E5631; border: 1px solid rgba(30, 86, 49, 0.1);';
+            }
+
+            // NEGATIVOS / CRÍTICOS - Rojo/Terracota (MOROSO, RECHAZADO, ANULADO, VENCIDO)
+            if (status.includes('MORO') || status.includes('RECHAZADO') || status.includes('ANULADO') || status.includes('VENCIDO') || status.includes('MORA')) {
+                return 'background: linear-gradient(135deg, #FFEBEE, #FFCDD2); color: #C45C26; border: 1px solid rgba(196, 92, 38, 0.1);';
+            }
+
+            // PENDIENTE / EN PROCESO - Dorado
+            if (status.includes('PENDIENTE') || status.includes('PROCESO') || status.includes('REVISION')) {
+                return 'background: linear-gradient(135deg, #FFF8E1, #FFECB3); color: #B8860B; border: 1px solid rgba(184, 134, 11, 0.1);';
+            }
+
+            // CANCELADO / PAUSADO - Gris/Neutral
+            if (status.includes('CANCELADO') || status.includes('PAUSADO')) {
+                return 'background: linear-gradient(135deg, #F5F5F5, #E0E0E0); color: #616161; border: 1px solid rgba(0, 0, 0, 0.05);';
+            }
+
+            // PRECANCELADO - Azul/Teal
+            if (status.includes('PRECANCELADO')) {
+                return 'background: linear-gradient(135deg, #E0F2F1, #B2DFDB); color: #00695C; border: 1px solid rgba(0, 105, 92, 0.1);';
+            }
+
+            // Estado por defecto
+            return 'background: linear-gradient(135deg, #E8F5E9, #C8E6C9); color: #1E5631;';
+        }
+
+        function renderCreditsTable(data) {
+            const creditsList = document.getElementById('creditsList');
+            if (!data || data.length === 0) {
+                creditsList.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">No se encontraron créditos registrados.</p>';
+                return;
+            }
+
+            let html = '<div class="credits-grid">';
+            data.forEach(cred => {
+                const estadoCredito = cred.estado_credito || 'ACTIVO';
+                const badgeStyle = getStatusBadgeStyle(estadoCredito);
+                html += `
+                    <div class="credit-card" onclick="viewAmortization('${cred.id_credito}')" style="cursor: pointer;">
+                        <div class="card-header">
+                            <span class="card-code"><i class="fas fa-hashtag"></i> ${cred.codigo_credito || '-'}</span>
+                            <span class="badge" style="${badgeStyle} font-size: 0.65rem; padding: 4px 10px; font-weight: 700; border-radius: 99px;">${estadoCredito}</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-main-info">
+                                <div class="card-icon-box">
+                                    <i class="fas fa-hand-holding-dollar"></i>
+                                </div>
+                                <div class="card-amount">
+                                    <span class="label">Capital Total</span>
+                                    <span class="value">$${cred.capital || '0'}</span>
+                                </div>
+                            </div>
+                            <div class="card-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fas fa-money-bill-wave"></i> Cuota</span>
+                                    <span class="stat-value">$${cred.cuota_con_ahorro || '0'}</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fas fa-calendar-check"></i> Pagadas</span>
+                                    <span class="stat-value">${cred.cuotas_pagadas || '0'} / ${cred.plazo || '0'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="click-hint">
+                            <i class="fas fa-info-circle"></i> Click para ver amortización
+                        </div>
+                    </div>`;
+            });
+            html += '</div>';
+            creditsList.innerHTML = html;
+        }
+
+        // [NEW] Logic for Policies
+        async function loadPolizas() {
+            const polizasList = document.getElementById('polizasList');
+            const loader = document.getElementById('polizasLoading');
+            const sessionData = getValidSession();
+
+            if (!sessionData) return;
+
+            // 1. Mostrar cache si existe
+            const cachedPolizas = localStorage.getItem(`polizas_${sessionData.socio.cedula}`);
+            if (cachedPolizas) {
+                renderPolizas(JSON.parse(cachedPolizas));
+            } else {
+                polizasList.innerHTML = '';
+                loader.style.display = 'block';
+            }
+
+            // 2. Fetch
+            try {
+                // Sending extra context (cedula, idsocio) to ensure backend can validate the token
+                const requestBody = {
+                    cedula: sessionData.socio.cedula,
+                    idsocio: sessionData.socio.idsocio,
+                    id_socio: sessionData.socio.idsocio // Included as requested, mirroring idsocio
+                };
+
+                console.log('Fetching policies with:', requestBody);
+
+                const response = await fetch(webhookPolizas, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': sessionData.token
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                const responseText = await response.text();
+
+                if (!response.ok) {
+                    console.error('Policies error status:', response.status, responseText);
+                    throw new Error(`Server returned ${response.status}`);
+                }
+
+                if (!responseText || responseText.trim() === '') {
+                    loader.style.display = 'none';
+                    if (!cachedPolizas) {
+                        polizasList.innerHTML = `<div style="text-align: center; padding: 3rem 1rem;">
+                            <div style="font-size: 3rem; color: #d1d5db; margin-bottom: 1rem;"><i class="fas fa-file-contract"></i></div>
+                            <p style="color: #6b7280; font-size: 1.1rem; margin-bottom: 0.5rem;">No tienes pólizas registradas.</p>
+                            <p style="color: #9ca3af; font-size: 0.9rem;">No se encontró información para mostrar.</p>
+                        </div>`;
+                    }
+                    return;
+                }
+
+                const data = JSON.parse(responseText);
+                loader.style.display = 'none';
+
+                if (Array.isArray(data)) {
+                    localStorage.setItem(`polizas_${sessionData.socio.cedula}`, JSON.stringify(data));
+                    renderPolizas(data);
+                } else {
+                    const errorMsg = data.message || 'No tienes pólizas registradas.';
+
+                    // Security check restored but safe
+                    const lowerMsg = errorMsg.toLowerCase();
+                    if (lowerMsg.includes('expirado') || lowerMsg.includes('caducado') || lowerMsg.includes('token')) {
+                        logout('security');
+                    } else if (!cachedPolizas) {
+                        // Friendly empty state
+                        polizasList.innerHTML = `<div style="text-align: center; padding: 3rem 1rem;">
+                            <div style="font-size: 3rem; color: #d1d5db; margin-bottom: 1rem;"><i class="fas fa-file-contract"></i></div>
+                            <p style="color: #6b7280; font-size: 1.1rem; margin-bottom: 0.5rem;">${errorMsg}</p>
+                            <p style="color: #9ca3af; font-size: 0.9rem;">No hay pólizas activas para mostrar.</p>
+                        </div>`;
+                    }
+                }
+
+            } catch (error) {
+                console.error('Error loading policies:', error);
+                loader.style.display = 'none';
+                if (!cachedPolizas) {
+                    polizasList.innerHTML = `<p style="text-align: center; color: var(--error-color); padding: 2rem;">No se pudo cargar la información.</p>`;
+                }
+            }
+        }
+
+        function renderPolizas(data) {
+            const polizasList = document.getElementById('polizasList');
+            if (!data || data.length === 0) {
+                polizasList.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">No hay pólizas disponibles.</p>';
+                return;
+            }
+
+            let html = '<div class="credits-grid">'; // Usamos el mismo grid de creditos para consistencia visual
+            data.forEach(pol => {
+                const estado = pol.estado || 'ACTIVO';
+                const badgeStyle = getStatusBadgeStyle(estado); // Reutilizamos funcion de estilos
+
+                html += `
+                    <div class="credit-card">
+                        <div class="card-header">
+                            <span class="card-code"><i class="fas fa-file-invoice"></i> ${pol.id_poliza || '-'}</span>
+                            <span class="badge" style="${badgeStyle} font-size: 0.65rem; padding: 4px 10px; font-weight: 700; border-radius: 99px;">${estado}</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-main-info">
+                                <div class="card-icon-box" style="background: #eff6ff; color: #3b82f6; border: none;">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="card-amount">
+                                    <span class="label">Valor Póliza</span>
+                                    <span class="value">$${pol.valor || '0'}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fas fa-calendar-alt"></i> Fecha Inicio</span>
+                                    <span class="stat-value">${pol.fecha || '-'}</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fas fa-calendar-times"></i> Vencimiento</span>
+                                    <span class="stat-value">${pol.fecha_vencimiento || '-'}</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fas fa-percent"></i> Interés</span>
+                                    <span class="stat-value">${pol.interes || '0'}%</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label"><i class="fas fa-coins"></i> Valor Final</span>
+                                    <span class="stat-value" style="color: var(--primary-color);">$${pol.valor_final || '0'}</span>
+                                </div>
+                            </div>
+                            
+                            ${pol.certificado_firmado ? `
+                            <div style="margin-top: 0.5rem; text-align: center;">
+                                <a href="${pol.certificado_firmado}" target="_blank" style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 0.8rem; background: var(--primary-color); color: white; text-decoration: none; border-radius: 12px; font-weight: 600; font-size: 0.9rem; transition: background 0.2s; gap: 0.5rem;">
+                                    <i class="fas fa-file-pdf"></i> Ver Certificado
+                                </a>
+                            </div>
+                            ` : ''}
+
+                        </div>
+                    </div>`;
+            });
+            html += '</div>';
+            polizasList.innerHTML = html;
+        }
+
+        async function viewAmortization(idCredito) {
+            if (!idCredito || idCredito === 'undefined') {
+                showMessage('ID de crédito no disponible para consulta.', 'error');
+                return;
+            }
+
+            const modal = document.getElementById('amortizationModal');
+            const content = document.getElementById('amortizationContent');
+            const loader = document.getElementById('amortizationLoading');
+            const sessionData = getValidSession();
+
+            if (!sessionData) return;
+
+            modal.style.display = 'flex';
+            content.innerHTML = '';
+            loader.style.display = 'block';
+
+            try {
+                const requestBody = {
+                    id_credito: idCredito,
+                    cedula: sessionData.socio.cedula,
+                    idsocio: sessionData.socio.idsocio
+                };
+                console.log('Fetching amortization with:', requestBody);
+
+                const response = await fetch(webhookAmortizacion, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': sessionData.token
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                const responseText = await response.text();
+
+                if (!response.ok) {
+                    console.error('Amortization error status:', response.status, responseText);
+                    throw new Error(`Server returned ${response.status}`);
+                }
+
+                if (!responseText || responseText.trim() === '') {
+                    console.warn('Amortization response is empty');
+                    loader.style.display = 'none';
+                    content.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">El servidor no devolvió datos de amortización (vacío).</p>';
+                    return;
+                }
+
+                const data = JSON.parse(responseText);
+                loader.style.display = 'none';
+
+                if (Array.isArray(data)) {
+                    if (data.length === 0) {
+                        content.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">No se encontraron cuotas para este crédito.</p>';
+                        return;
+                    }
+
+                    let tableHtml = `
+                        <div class="table-responsive">
+                            <table class="amortization-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Valor a Pagar</th>
+                                        <th>Vencimiento</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    `;
+
+                    data.forEach(cuota => {
+                        const style = getStatusBadgeStyle(cuota.estado_cuota);
+                        tableHtml += `
+                            <tr>
+                                <td>${cuota.numero_cuota || '-'}</td>
+                                <td style="font-weight: 700;">$${cuota.cuota_total || '0'}</td>
+                                <td>${cuota.fecha_vencimiento || '-'}</td>
+                                <td><span class="status-pill" style="${style}">${cuota.estado_cuota || '-'}</span></td>
+                            </tr>
+                        `;
+                    });
+
+                    tableHtml += '</tbody></table></div>';
+                    content.innerHTML = tableHtml;
+                } else {
+                    content.innerHTML = `<p style="text-align: center; color: var(--error-color); padding: 2rem;">${data.message || 'Error al consultar amortización.'}</p>`;
+                }
+            } catch (error) {
+                console.error('Error in viewAmortization:', error);
+                loader.style.display = 'none';
+                content.innerHTML = '<p style="text-align: center; color: var(--error-color); padding: 2rem;">Error de conexión o datos inválidos.</p>';
+            }
+        }
+
+        function closeAmortizationModal() {
+            document.getElementById('amortizationModal').style.display = 'none';
+        }
+
+        function logout(reason = null) {
+            const dash = document.getElementById('dashboard');
+            if (dash && dash.style.display !== 'none') {
+                dash.classList.add('animate-exit');
+                // Esperar a que termine la animación (500ms)
+                setTimeout(() => finalizeLogout(reason), 450);
+            } else {
+                finalizeLogout(reason);
+            }
+        }
+
+        function finalizeLogout(reason) {
+            localStorage.clear();
+            if (reason) {
+                window.location.href = window.location.pathname + '?msg=' + reason;
+            } else {
+                location.reload();
+            }
+        }
+
+        // Al cargar, verificar si viene de una expiración o cierre de seguridad
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const msgType = urlParams.get('msg');
+
+            if (msgType === 'expired' || msgType === 'security') {
+                showExpiryMessage(msgType);
+            }
+
+            if (msgType) {
+                // Limpiar la URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+
+        function setLoading(isLoading) {
+            if (isLoading) {
+                submitBtn.disabled = true;
+                const originalText = submitBtn.textContent;
+                if (!submitBtn.hasAttribute('data-original-text')) {
+                    submitBtn.setAttribute('data-original-text', originalText);
+                }
+                submitBtn.innerHTML = '<div class="loader"></div> Procesando...';
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.textContent = submitBtn.getAttribute('data-original-text') || (currentStep === 1 ? 'Enviar Cédula' : 'Enviar Código');
+            }
+        }
+
+        function showMessage(text, type, config = {}) {
+            if (type === 'success') {
+                hideMessage();
+                showStatusToast({
+                    icon: config.icon || '<i class="fas fa-check-circle"></i>',
+                    title: config.title || 'Información',
+                    message: text,
+                    duration: config.duration || 4000
+                });
+            } else {
+                messageDiv.textContent = text;
+                messageDiv.className = type;
+                messageDiv.style.display = 'block';
+            }
+        }
+
+        function hideMessage() {
+            messageDiv.style.display = 'none';
+            messageDiv.className = '';
+        }
+    </script>
+</body>
+
+</html>
